@@ -27,7 +27,7 @@ jobs:
       - name: Validate SAM Template
         run: sam validate
       
-      - name: Build and Deploy
+      - name: Build
         run: sam build --use-container
       
       - name: Deploy
