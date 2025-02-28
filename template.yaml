@@ -83,6 +83,36 @@ Resources:
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
 
+  NotifyProcessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: NotifyProcessFunction
+      CodeUri: notify-process/
+      Handler: app.handler  
+      Runtime: nodejs20.x
+      MemorySize: 128
+      Policies: 
+        - SNSPublishMessagePolicy:
+            TopicName: !Ref SNSNotifyTopic
+      Architectures:
+      - x86_64
+      Events:
+        SQSNotifyHighPriorityQueueEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyHighPriorityQueue.Arn
+            BatchSize: 10
+        SQSNotifyMediumPriorityQueueEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyMediumPriorityQueue.Arn
+            BatchSize: 10
+        SQSNotifyLowPriorityQueueEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyLowPriorityQueue.Arn
+            BatchSize: 10
+
   NotifyValidationFunction:
     Type: AWS::Serverless::Function  
     Properties:    
