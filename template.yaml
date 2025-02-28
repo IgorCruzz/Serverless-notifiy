@@ -92,8 +92,12 @@ Resources:
       Runtime: nodejs20.x
       MemorySize: 128
       Policies: 
-        - SNSPublishMessagePolicy:
-            TopicName: !Ref SNSNotifyTopic
+        - SQSpollerPolicy:
+            QueueName: !Ref SQSNotifyHighPriorityQueue
+        - SQSpollerPolicy:
+            QueueName: !Ref SQSNotifyMediumPriorityQueue
+        - SQSpollerPolicy:
+            QueueName: !Ref SQSNotifyLowPriorityQueue
       Architectures:
       - x86_64
       Events:
