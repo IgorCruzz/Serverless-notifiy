@@ -12,18 +12,34 @@ Globals:
   Api:
     TracingEnabled: true
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function  
+  NotifyApi:
+    Type: AWS::Serverless::HttpApi
     Properties:
-      CodeUri: notifier/
-      Handler: app.lambdaHandler
+      Name: NotifyAPI
+      StageName: Prod
+      Description: Notify API
+      CorsConfiguration: 
+        AllowMethods:  
+          - POST
+        AllowHeaders: 
+          - '*'
+        AllowOrigins: 
+          - '*'
+
+  NotifyValidationFunction:
+    Type: AWS::Serverless::Function  
+    Properties:    
+      CodeUri: notify-validation/
+      Handler: app.handler
       Runtime: nodejs20.x
+      MemorySize: 128
       Architectures:
       - x86_64
       Events:
         HelloWorld:
-          Type: Api  
+          Type: HttpApi
           Properties:
+            ApiId: !Ref NotifyApi
             Path: /hello
             Method: get
     Metadata: 

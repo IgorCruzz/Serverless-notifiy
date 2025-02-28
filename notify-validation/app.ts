@@ -1,11 +1,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'hello world',
+                message: 'OK',
             }),
         };
     } catch (err) {
@@ -13,7 +13,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         return {
             statusCode: 500,
             body: JSON.stringify({
-                message: 'some error happened',
+                message: 'Ocorreu um problema interno',
             }),
         };
     }
