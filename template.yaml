@@ -25,6 +25,12 @@ Resources:
           - '*'
         AllowOrigins: 
           - '*'
+  
+  SNSNotifyTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: NotifyTopic
+      TopicName: NotifyTopic
 
   NotifyValidationFunction:
     Type: AWS::Serverless::Function  
@@ -33,6 +39,9 @@ Resources:
       Handler: app.handler
       Runtime: nodejs20.x
       MemorySize: 128
+      Policies: 
+        - SNSPublishMessagePolicy:
+            TopicName: !Ref SNSNotifyTopic
       Architectures:
       - x86_64
       Events:
