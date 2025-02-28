@@ -31,10 +31,62 @@ Resources:
     Properties:
       DisplayName: NotifyTopic
       TopicName: NotifyTopic
+  
+  SNSNotifyHighPrioritySubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      TopicArn: !Ref SNSNotifyTopic
+      Endpoint: !GetAtt SQSNotifyHighPriorityQueue.Arn
+      FilterPolicy: 
+        priority: 
+          StringEquals: HIGH
+  
+  SNSNotifyMediumPrioritySubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      TopicArn: !Ref SNSNotifyTopic
+      Endpoint: !GetAtt SQSNotifyMediumPriorityQueue.Arn
+      FilterPolicy: 
+        priority: 
+          StringEquals: MEDIUM
+  
+  SNSNotifyLowPrioritySubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      TopicArn: !Ref SNSNotifyTopic
+      Endpoint: !GetAtt SQSNotifyLowPriorityQueue.Arn
+      FilterPolicy: 
+        priority: 
+          StringEquals: LOW
+  
+  SQSNotifyHighPriorityQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyHighPriorityQueue
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+  
+  SQSNotifyMediumPriorityQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyMediumPriorityQueue
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+
+  SQSNotifyLowPriorityQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyLowPriorityQueue
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
 
   NotifyValidationFunction:
     Type: AWS::Serverless::Function  
     Properties:    
+      FunctionName: NotifyValidationFunction
       CodeUri: notify-validation/
       Handler: app.handler
       Runtime: nodejs20.x
@@ -49,8 +101,8 @@ Resources:
           Type: HttpApi
           Properties:
             ApiId: !Ref NotifyApi
-            Path: /hello
-            Method: get
+            Path: /notification
+            Method: post
     Metadata: 
       BuildMethod: esbuild
       BuildProperties:
