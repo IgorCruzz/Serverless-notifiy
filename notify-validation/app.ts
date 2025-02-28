@@ -1,10 +1,13 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { PublishCommand, SNSClient, PublishCommandInput } from '@aws-sdk/client-sns';
 
 type NotifyType = {
     userId: string;
     message: string;
     priority: 'HIGH' | 'MEDIUM' | 'LOW';
 };
+
+export const snsClient = new SNSClient({});
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
@@ -19,10 +22,23 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             };
         }
 
+        const publishCommandInput: PublishCommandInput = {
+            TopicArn: process.env.SNS_TOPIC_ARN,
+            Message: JSON.stringify({
+                userId: body.userId,
+                message: body.message,
+                priority: body.priority,
+            }),
+        };
+
+        const publishCommand = new PublishCommand(publishCommandInput);
+
+        await snsClient.send(publishCommand);
+
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'Notificação enviado com sucesso',
+                message: 'Notificação enviada com sucesso',
             }),
         };
     } catch (err) {
