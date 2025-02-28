@@ -1,5 +1,5 @@
 {
-  "name": "hello_world",
+  "name": "ServerlessNotify",
   "version": "1.0.0",
   "description": "hello world sample for NodeJS",
   "main": "app.js",
