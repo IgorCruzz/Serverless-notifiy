@@ -6,15 +6,29 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.JS
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - uses: aws-actions/setup-sam@v2
-      - uses: aws-actions/configure-aws-credentials@v1
+
+      - name: Setup SAM 
+        uses: aws-actions/setup-sam@v2
+
+      - name: Set AWS Credentials 
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: sam build --use-container
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      
+      - name: Validate SAM Template
+        run: sam validate
+      
+      - name: Build and Deploy
+        run: sam build --use-container
+      
+      - name: Deploy
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
