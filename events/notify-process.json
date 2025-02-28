@@ -1,0 +1,20 @@
+{
+  "Records": [
+    {
+      "messageId": "1c76fe3f-118a-45a0-8f6d-32c01715f8f4",
+      "receiptHandle": "AQEBJ1tJYYs9tP0B0vL8Z6Xa1qExYHfWr5yX7Ij8B9jkw5L5aH5qhzJ5A1HKpRi0Jl0VktmtmEdh8Wqg4O_6G2lMjFk3WXB2kfhYqV6AwmjkqzR0pDzqq2gTpOFiV7_S1B-vVeHfs8J0uOA6AfyNUSgYll7fz1Jrsrb6HvsHlc9QQqAv3w0gX__F9hTcm_JX2kV2lZcL9BRLDS8z9_og__52KLcjs1AY_HkqlfhCxt-b7c6lu7el7gF-AO7Vlg--H-3Vv4Kdb75ZmN5jCqa2JwW6nMGq0d7K0jFSJZXi1XqkUrFrBrC7_SfA0zGGq5jXXiyQUdI0sKQ6Vmq8F8boH2_g9mAN2kdmNkKDZdxziwXrQYwqbdR0gY35WbF1xf0h5DDeKmB2btbOgfzPcmS-fB1nS-9d8N5nTp9iGgqw",
+      "body": "{\"userId\": \"123456\", \"message\": \"Hello, world!\",  \"priority\": \"HIGH\"}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1612432710114",
+        "SenderId": "AIDAEXAMPLE",
+        "ApproximateFirstReceiveTimestamp": "1612432710240"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "d41d8cd98f00b204e9800998ecf8427e",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:123456789012:my-queue",
+      "awsRegion": "us-east-1"
+    }
+  ]
+}
