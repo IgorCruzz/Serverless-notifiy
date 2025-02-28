@@ -2,10 +2,12 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
+        const body = JSON.parse(event.body || '');
+
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'Notificação enviado   com sucesso',
+                message: 'Notificação enviado com sucesso',
             }),
         };
     } catch (err) {
