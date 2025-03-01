@@ -40,7 +40,8 @@ Resources:
       Endpoint: !GetAtt SQSNotifyHighPriorityQueue.Arn
       FilterPolicy: 
         priority: 
-          StringEquals: HIGH
+          StringEquals: 
+            - HIGH
   
   SNSNotifyMediumPrioritySubscription:
     Type: AWS::SNS::Subscription
@@ -50,7 +51,8 @@ Resources:
       Endpoint: !GetAtt SQSNotifyMediumPriorityQueue.Arn
       FilterPolicy: 
         priority: 
-          StringEquals: MEDIUM
+          StringEquals: 
+           - MEDIUM
   
   SNSNotifyLowPrioritySubscription:
     Type: AWS::SNS::Subscription
@@ -60,7 +62,8 @@ Resources:
       Endpoint: !GetAtt SQSNotifyLowPriorityQueue.Arn
       FilterPolicy: 
         priority: 
-          StringEquals: LOW
+          StringEquals: 
+            - LOW
   
   SQSNotifyHighPriorityQueue:
     Type: AWS::SQS::Queue
