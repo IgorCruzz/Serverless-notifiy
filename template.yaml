@@ -69,6 +69,20 @@ Resources:
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
   
+  SQSNotifyMediumPriorityQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyMediumPriorityQueue
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+  
+  SQSNotifyLowPriorityQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyLowPriorityQueue
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+  
   SQSNotifyHighPriorityQueuePolicy:
     Type: AWS::SQS::QueuePolicy
     Properties:
@@ -118,19 +132,9 @@ Resources:
                 aws:SourceArn: !Ref SNSNotifyTopic
              
   
-  SQSNotifyMediumPriorityQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      QueueName: NotifyMediumPriorityQueue
-      VisibilityTimeout: 30
-      MessageRetentionPeriod: 345600
 
-  SQSNotifyLowPriorityQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      QueueName: NotifyLowPriorityQueue
-      VisibilityTimeout: 30
-      MessageRetentionPeriod: 345600
+
+  
 
   NotifyProcessFunction:
     Type: AWS::Serverless::Function
