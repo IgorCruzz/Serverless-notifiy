@@ -92,14 +92,14 @@ Resources:
       Runtime: nodejs20.x
       MemorySize: 128
       Policies: 
-        - SQSpollerPolicy:
+        - SQSPollerPolicy:
             QueueName: !Ref SQSNotifyHighPriorityQueue
-        - SQSpollerPolicy:
+        - SQSPollerPolicy:
             QueueName: !Ref SQSNotifyMediumPriorityQueue
-        - SQSpollerPolicy:
+        - SQSPollerPolicy:
             QueueName: !Ref SQSNotifyLowPriorityQueue
       Architectures:
-      - x86_64
+        - x86_64
       Events:
         SQSNotifyHighPriorityQueueEvent:
           Type: SQS 
