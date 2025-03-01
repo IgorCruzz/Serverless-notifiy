@@ -188,7 +188,7 @@ Resources:
       MemorySize: 128
       Policies: 
         - SNSPublishMessagePolicy:
-            TopicName: !Ref SNSNotifyTopic
+            TopicName: SNSNotifyTopic 
       Architectures:
       - x86_64
       Environment:
