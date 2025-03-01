@@ -64,10 +64,32 @@ Resources:
   
   SQSNotifyHighPriorityQueue:
     Type: AWS::SQS::Queue
-    Properties:
+    Properties:     
       QueueName: NotifyHighPriorityQueue
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
+  
+  SQSNotifyQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref SQSNotifyHighPriorityQueue
+        - !Ref SQSNotifyMediumPriorityQueue
+        - !Ref SQSNotifyLowPriorityQueue
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action: SQS:SendMessage
+            Resource: 
+              - !GetAtt SQSNotifyHighPriorityQueue.Arn
+              - !GetAtt SQSNotifyMediumPriorityQueue.Arn
+              - !GetAtt SQSNotifyLowPriorityQueue.Arn
+            Condition:
+              ArnEquals:
+                aws:SourceArn: !Ref SNSNotifyTopic
+             
   
   SQSNotifyMediumPriorityQueue:
     Type: AWS::SQS::Queue
