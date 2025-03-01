@@ -179,6 +179,9 @@ Resources:
             TopicName: !Ref SNSNotifyTopic
       Architectures:
       - x86_64
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !GetAtt  SNSNotifyTopic.Arn
       Events:
         HelloWorld:
           Type: HttpApi
