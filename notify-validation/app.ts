@@ -22,8 +22,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             };
         }
 
-        console.log({ TOPIC: process.env.SNS_TOPIC_ARN });
-
         const publishCommandInput: PublishCommandInput = {
             TopicArn: process.env.SNS_TOPIC_ARN,
             Message: JSON.stringify({
@@ -31,6 +29,12 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
                 message: body.message,
                 priority: body.priority,
             }),
+            MessageAttributes: {
+                priority: {
+                    DataType: 'String',
+                    StringValue: body.priority,
+                },
+            },
         };
 
         const publishCommand = new PublishCommand(publishCommandInput);
