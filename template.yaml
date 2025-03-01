@@ -188,12 +188,12 @@ Resources:
       MemorySize: 128
       Policies: 
         - SNSPublishMessagePolicy:
-            TopicName: SNSNotifyTopic 
+            TopicName: !GetAtt SNSNotifyTopic.TopicName 
       Architectures:
       - x86_64
       Environment:
         Variables:
-          SNS_TOPIC_ARN: !GetAtt SNSNotifyTopic.TopicName
+          SNS_TOPIC_ARN: !Ref  SNSNotifyTopic
       Events:
         HelloWorld:
           Type: HttpApi
