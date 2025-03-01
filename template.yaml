@@ -165,6 +165,14 @@ Resources:
           Properties:
             Queue: !GetAtt SQSNotifyLowPriorityQueue.Arn
             BatchSize: 10
+    Metadata: 
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        Sourcemap: true
+        EntryPoints:
+        - app.ts
 
   NotifyValidationFunction:
     Type: AWS::Serverless::Function  
