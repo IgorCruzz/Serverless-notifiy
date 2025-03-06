@@ -130,11 +130,6 @@ Resources:
             Condition:
               ArnEquals:
                 aws:SourceArn: !Ref SNSNotifyTopic
-             
-  
-
-
-  
 
   NotifyProcessFunction:
     Type: AWS::Serverless::Function
@@ -151,6 +146,8 @@ Resources:
             QueueName: !Ref SQSNotifyMediumPriorityQueue
         - SQSPollerPolicy:
             QueueName: !Ref SQSNotifyLowPriorityQueue
+        - DynamoDBCrudPolicy:
+            TableName: !Ref NotifyTable
       Architectures:
         - x86_64
       Events:
@@ -209,3 +206,15 @@ Resources:
         Sourcemap: true
         EntryPoints:
         - app.ts
+
+  NotifyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: NotifyTable
+      AttributeDefinitions:
+        - AttributeName: ID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: ID
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST 
