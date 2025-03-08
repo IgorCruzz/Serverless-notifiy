@@ -1,6 +1,6 @@
 import { SQSEvent } from 'aws-lambda';
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, PutCommand, PutCommandInput } from '@aws-sdk/lib-dynamodb';
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -12,7 +12,7 @@ export const handler = async (event: SQSEvent): Promise<void> => {
 
             console.log('Processing message', body);
 
-            const parmas: PutItemCommandInput = {
+            const parmas: PutCommandInput = {
                 TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
                     ID: body.userId,
@@ -22,7 +22,7 @@ export const handler = async (event: SQSEvent): Promise<void> => {
                 ConditionExpression: 'attribute_not_exists(ID)',
             };
 
-            const command = new PutItemCommand(parmas);
+            const command = new PutCommand(parmas);
 
             await docClient.send(command);
         } catch (error) {
