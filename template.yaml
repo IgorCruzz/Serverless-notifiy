@@ -150,6 +150,9 @@ Resources:
             TableName: !Ref NotifyTable
       Architectures:
         - x86_64
+      Environment:
+        Variables: 
+          DYNAMODB_TABLE_NAME: !Ref NotifyTable
       Events:
         SQSNotifyHighPriorityQueueEvent:
           Type: SQS 

@@ -13,7 +13,7 @@ export const handler = async (event: SQSEvent): Promise<void> => {
             console.log('Processing message', body);
 
             const parmas: PutItemCommandInput = {
-                TableName: process.env.TABLE_NAME,
+                TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
                     ID: body.userId,
                     Message: body.message,
