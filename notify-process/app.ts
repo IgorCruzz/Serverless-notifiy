@@ -10,6 +10,8 @@ export const handler = async (event: SQSEvent): Promise<void> => {
         try {
             const body = JSON.parse(record.body);
 
+            console.log({ body });
+
             const params: PutCommandInput = {
                 TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
