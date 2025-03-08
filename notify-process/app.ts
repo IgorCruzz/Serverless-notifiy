@@ -10,7 +10,7 @@ export const handler = async (event: SQSEvent): Promise<void> => {
         try {
             const body = JSON.parse(record.body);
 
-            const parmas: PutCommandInput = {
+            const params: PutCommandInput = {
                 TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
                     ID: String(body.userId),
@@ -20,7 +20,9 @@ export const handler = async (event: SQSEvent): Promise<void> => {
                 ConditionExpression: 'attribute_not_exists(ID)',
             };
 
-            const command = new PutCommand(parmas);
+            console.log({ params });
+
+            const command = new PutCommand(params);
 
             await docClient.send(command);
         } catch (error) {
