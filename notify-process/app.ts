@@ -27,6 +27,7 @@ export const handler = async (event: SQSEvent): Promise<void> => {
             await docClient.send(command);
         } catch (error) {
             console.error(error);
+            throw error;
         }
     }
 };
