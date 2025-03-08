@@ -13,12 +13,14 @@
     "test": "npm run compile && npm run unit"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.758.0",
+    "@aws-sdk/lib-dynamodb": "^3.758.0",
     "esbuild": "^0.14.14"
   },
   "devDependencies": {
+    "@jest/globals": "^29.2.0",
     "@types/aws-lambda": "^8.10.92",
     "@types/jest": "^29.2.0",
-    "@jest/globals": "^29.2.0",
     "@types/node": "^20.5.7",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
