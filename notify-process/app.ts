@@ -9,15 +9,14 @@ export const handler = async (event: SQSEvent): Promise<void> => {
     for (const record of event.Records) {
         try {
             const body = JSON.parse(record.body);
-
-            console.log({ body });
+            const message = JSON.parse(body.Message);
 
             const params: PutCommandInput = {
                 TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
-                    ID: String(body.userId),
-                    Message: body.message,
-                    Priority: body.priority,
+                    ID: String(message.userId),
+                    Message: message.message,
+                    Priority: message.priority,
                 },
                 ConditionExpression: 'attribute_not_exists(ID)',
             };
