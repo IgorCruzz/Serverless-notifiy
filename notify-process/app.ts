@@ -10,8 +10,6 @@ export const handler = async (event: SQSEvent): Promise<void> => {
         try {
             const body = JSON.parse(record.body);
 
-            console.log('Processing message', body);
-
             const parmas: PutCommandInput = {
                 TableName: process.env.DYNAMODB_TABLE_NAME,
                 Item: {
@@ -26,7 +24,6 @@ export const handler = async (event: SQSEvent): Promise<void> => {
 
             await docClient.send(command);
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }
