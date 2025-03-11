@@ -31,4 +31,4 @@ jobs:
         run: sam build --use-container
       
       - name: Deploy
-        run: sam deploy --parameter-overrides ${{ secrets.EMAIL }}  --no-confirm-changeset --no-fail-on-empty-changeset
+        run: sam deploy --parameter-overrides Email=${{ secrets.EMAIL }}  --no-confirm-changeset --no-fail-on-empty-changeset
