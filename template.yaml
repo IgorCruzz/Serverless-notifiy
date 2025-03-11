@@ -155,6 +155,7 @@ Resources:
       Environment:
         Variables: 
           DYNAMODB_TABLE_NAME: !Ref NotifyTable
+          SNS_TOPIC_ARN: !Ref SNSNotifyTopic 
       Events:
         SQSNotifyHighPriorityQueueEvent:
           Type: SQS 
@@ -195,7 +196,7 @@ Resources:
       - x86_64
       Environment:
         Variables:
-          SNS_TOPIC_ARN: !Ref  SNSNotifyTopic
+          SNS_TOPIC_ARN: !Ref SNSNotifyTopic
       Events:
         HelloWorld:
           Type: HttpApi
