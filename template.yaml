@@ -11,6 +11,12 @@ Globals:
       LogFormat: JSON
   Api:
     TracingEnabled: true
+
+Parameters:
+  Email:
+    Type: String
+    Description: Email address to receive notifications
+
 Resources:
   NotifyApi:
     Type: AWS::Serverless::HttpApi
@@ -236,8 +242,7 @@ Resources:
     Properties:
       Protocol: email
       TopicArn: !Ref SNSNotifyAlert
-      Endpoint: igorcruz.dev@gmail.com
-
+      Endpoint: !Ref Email
 
 
 
