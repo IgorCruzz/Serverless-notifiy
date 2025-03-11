@@ -220,4 +220,22 @@ Resources:
       KeySchema:
         - AttributeName: ID
           KeyType: HASH
-      BillingMode: PAY_PER_REQUEST 
+      BillingMode: PAY_PER_REQUEST
+
+  SNSNotifyAlert:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: NotifyAlertTopic
+      TopicName: NotifyAlertTopic
+
+  SNSNotifyAlertSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn: !Ref SNSNotifyAlert
+      Endpoint: igorcruz.dev@gmail.com
+
+
+
+
+
