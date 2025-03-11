@@ -266,6 +266,51 @@ Resources:
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
 
-
+  NotifyProcessDLQFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: NotifyProcessDLQFunction
+      CodeUri: notify-process/
+      Handler: app.handler  
+      Runtime: nodejs20.x
+      MemorySize: 128
+      Policies: 
+        - SQSPollerPolicy:
+            QueueName: !Ref SQSNotifyHighPriorityDLQ
+        - SQSPollerPolicy:
+            QueueName: !Ref SQSNotifyMediumPriorityDLQ
+        - SQSPollerPolicy:
+            QueueName: !Ref SQSNotifyLowPriorityDLQ
+        - DynamoDBCrudPolicy:
+            TableName: !Ref NotifyTable
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt SNSNotifyAlert.TopicName 
+      Architectures:
+        - x86_64  
+      Events:
+        SQSNotifyHighPriorityDLQEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyHighPriorityDLQ.Arn
+            BatchSize: 10
+        SQSNotifyMediumPriorityDLQEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyMediumPriorityDLQ.Arn
+            BatchSize: 10
+        SQSNotifyLowPriorityDLQEvent:
+          Type: SQS 
+          Properties:
+            Queue: !GetAtt SQSNotifyLowPriorityDLQ.Arn
+            BatchSize: 10
+    Metadata: 
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        Sourcemap: true
+        EntryPoints:
+        - app.ts
+   
 
 
