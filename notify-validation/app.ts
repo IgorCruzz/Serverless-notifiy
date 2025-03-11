@@ -7,7 +7,7 @@ type NotifyType = {
     priority: 'HIGH' | 'MEDIUM' | 'LOW';
 };
 
-export const snsClient = new SNSClient({});
+const snsClient = new SNSClient({});
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
