@@ -155,7 +155,7 @@ Resources:
       Environment:
         Variables: 
           DYNAMODB_TABLE_NAME: !Ref NotifyTable
-          SNS_TOPIC_ARN: !Ref SNSNotifyTopic 
+          SNS_TOPIC_ARN: !Ref SNSNotifyAlert 
       Events:
         SQSNotifyHighPriorityQueueEvent:
           Type: SQS 
