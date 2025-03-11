@@ -243,6 +243,28 @@ Resources:
       Protocol: email
       TopicArn: !Ref SNSNotifyAlert
       Endpoint: !Ref Email
+  
+
+  SQSNotifyLowPriorityDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyLowPriorityDLQ
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+  
+  SQSNotifyMediumPriorityDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyMediumPriorityDLQ
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
+  
+  SQSNotifyHighPriorityDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: NotifyHighPriorityDLQ
+      VisibilityTimeout: 30
+      MessageRetentionPeriod: 345600
 
 
 
