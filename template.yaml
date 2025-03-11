@@ -148,6 +148,8 @@ Resources:
             QueueName: !Ref SQSNotifyLowPriorityQueue
         - DynamoDBCrudPolicy:
             TableName: !Ref NotifyTable
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt SNSNotifyAlert.TopicName 
       Architectures:
         - x86_64
       Environment:
