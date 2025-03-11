@@ -24,6 +24,8 @@ export const handler = async (event: SQSEvent): Promise<void> => {
             const command = new PutCommand(params);
 
             await docClient.send(command);
+
+            console.log('Notificação armazenada com sucesso ', message);
         } catch (error) {
             throw error;
         }
