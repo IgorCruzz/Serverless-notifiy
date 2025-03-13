@@ -74,6 +74,9 @@ Resources:
       QueueName: NotifyHighPriorityQueue
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt SQSNotifyHighPriorityDLQ.Arn
+        maxReceiveCount: 5
   
   SQSNotifyMediumPriorityQueue:
     Type: AWS::SQS::Queue
@@ -81,6 +84,9 @@ Resources:
       QueueName: NotifyMediumPriorityQueue
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt SQSNotifyMediumPriorityDLQ.Arn
+        maxReceiveCount: 5
   
   SQSNotifyLowPriorityQueue:
     Type: AWS::SQS::Queue
@@ -88,6 +94,9 @@ Resources:
       QueueName: NotifyLowPriorityQueue
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt SQSNotifyLowPriorityDLQ.Arn
+        maxReceiveCount: 5
   
   SQSNotifyHighPriorityQueuePolicy:
     Type: AWS::SQS::QueuePolicy
@@ -242,8 +251,7 @@ Resources:
     Properties:
       Protocol: email
       TopicArn: !Ref SNSNotifyAlert
-      Endpoint: !Ref Email
-  
+      Endpoint: !Ref Email  
 
   SQSNotifyLowPriorityDLQ:
     Type: AWS::SQS::Queue
