@@ -270,7 +270,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: NotifyProcessDLQFunction
-      CodeUri: notify-process/
+      CodeUri: notify-process-dlq/
       Handler: app.handler  
       Runtime: nodejs20.x
       MemorySize: 128
@@ -280,11 +280,7 @@ Resources:
         - SQSPollerPolicy:
             QueueName: !Ref SQSNotifyMediumPriorityDLQ
         - SQSPollerPolicy:
-            QueueName: !Ref SQSNotifyLowPriorityDLQ
-        - DynamoDBCrudPolicy:
-            TableName: !Ref NotifyTable
-        - SNSPublishMessagePolicy:
-            TopicName: !GetAtt SNSNotifyAlert.TopicName 
+            QueueName: !Ref SQSNotifyLowPriorityDLQ 
       Architectures:
         - x86_64  
       Events:
