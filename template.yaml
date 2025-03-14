@@ -325,12 +325,12 @@ Resources:
       MetricName: NumberOfMessagesReceived  
       Statistic: Sum
       Dimensions:
-        - Name: !GetAtt SQSNotifyHighPriorityDLQ.QueueName
-          Value: !GetAtt SQSNotifyHighPriorityDLQ.QueueName
-        - Name: !GetAtt SQSNotifyMediumPriorityDLQ.QueueName
-          Value: !GetAtt SQSNotifyMediumPriorityDLQ.QueueName
-        - Name: !GetAtt SQSNotifyLowPriorityDLQ.QueueName  
-          Value: !GetAtt SQSNotifyLowPriorityDLQ.QueueName      
+        - Name: QueueName
+          Value: !Ref SQSNotifyHighPriorityDLQ
+        - Name: QueueName
+          Value: !Ref SQSNotifyMediumPriorityDLQ 
+        - Name: QueueName  
+          Value: !Ref SQSNotifyLowPriorityDLQ     
       Period: 60
       EvaluationPeriods: 1
       Threshold: 1
