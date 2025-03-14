@@ -319,7 +319,7 @@ Resources:
   AlarmNotifyDLQ:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: NotifyDLQAlarm
+      AlarmName: NotifyDLQReceivedCountAlarm
       AlarmDescription: Alarm for Notify DLQ
       Namespace: AWS/SQS
       MetricName: NumberOfMessagesSent 
