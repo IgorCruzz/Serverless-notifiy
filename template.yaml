@@ -322,7 +322,7 @@ Resources:
       AlarmName: NotifyDLQReceivedCountAlarm
       AlarmDescription: Alarm for Notify DLQ
       Namespace: AWS/SQS
-      MetricName: NumberOfMessagesSent 
+      MetricName: NumberOfMessagesReceived  
       Statistic: Sum
       Dimensions:
         - Name: !GetAtt SQSNotifyHighPriorityDLQ.QueueName
