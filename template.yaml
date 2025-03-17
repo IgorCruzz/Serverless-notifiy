@@ -315,31 +315,4 @@ Resources:
         Sourcemap: true
         EntryPoints:
         - app.ts   
-
-  AlarmNotifyDLQ:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: NotifyDLQReceivedCountAlarm
-      AlarmDescription: Alarm for Notify DLQ
-      Namespace: AWS/SQS
-      MetricName: NumberOfMessagesReceived  
-      Statistic: Sum
-      Dimensions:
-        - Name: QueueName
-          Value: !Ref SQSNotifyHighPriorityDLQ
-        - Name: QueueName
-          Value: !Ref SQSNotifyMediumPriorityDLQ 
-        - Name: QueueName  
-          Value: !Ref SQSNotifyLowPriorityDLQ     
-      Period: 60
-      EvaluationPeriods: 1
-      Threshold: 1
-      ComparisonOperator: GreaterThanOrEqualToThreshold
-      TreatMissingData: notBreaching
-      AlarmActions:
-        - !Ref SNSNotifyAlert
-      OKActions:
-        - !Ref SNSNotifyAlert
-      InsufficientDataActions:
-        - !Ref SNSNotifyAlert
-
+ 
