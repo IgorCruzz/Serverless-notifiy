@@ -1,5 +1,5 @@
 {
-  "name": "ServerlessNotify",
+  "name": "notify-validation",
   "version": "1.0.0",
   "description": "hello world sample for NodeJS",
   "main": "app.js",
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.758.0",
-    "esbuild": "^0.14.14"
+    "esbuild": "^0.14.14",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@jest/globals": "^29.2.0",
