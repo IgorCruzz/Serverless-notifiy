@@ -18,10 +18,10 @@ Parameters:
     Description: Email address to receive notifications
 
 Resources:
-  NotifyApi:
+  NotifyRestApi:
     Type: AWS::Serverless::Api
     Properties:
-      Name: NotifyAPI
+      Name: NotifyRestApi
       StageName: Prod
       Description: Notify API
       Cors: 
@@ -214,7 +214,7 @@ Resources:
         HelloWorld:
           Type: Api
           Properties:
-            RestApiId: !Ref NotifyApi
+            RestApiId: !Ref NotifyRestApi
             Path: /notifications
             Method: post
     Metadata: 
