@@ -19,18 +19,16 @@ Parameters:
 
 Resources:
   NotifyApi:
-    Type: AWS::Serverless::HttpApi
+    Type: AWS::Serverless::Api
     Properties:
       Name: NotifyAPI
       StageName: Prod
       Description: Notify API
-      CorsConfiguration: 
-        AllowMethods:  
-          - POST
-        AllowHeaders: 
-          - '*'
-        AllowOrigins: 
-          - '*'
+      Cors: 
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+       
   
   SNSNotifyTopic:
     Type: AWS::SNS::Topic
@@ -214,10 +212,10 @@ Resources:
           SNS_TOPIC_ARN: !Ref SNSNotifyTopic
       Events:
         HelloWorld:
-          Type: HttpApi
+          Type: Api
           Properties:
-            ApiId: !Ref NotifyApi
-            Path: /notification
+            RestApiId: !Ref NotifyApi
+            Path: /notifications
             Method: post
     Metadata: 
       BuildMethod: esbuild
