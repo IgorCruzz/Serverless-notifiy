@@ -1,5 +1,5 @@
 import { PublishCommand, PublishCommandInput, SNSClient } from '@aws-sdk/client-sns';
-import { NotifyType } from '../schemas';
+import { NotifyType } from '../types';
 
 const snsClient = new SNSClient({});
 

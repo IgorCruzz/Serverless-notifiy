@@ -1,21 +1,10 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { NotifyType, validation } from './schemas';
+import { NotifyType } from './types';
 import { NotifyRepository } from './services/sns-services';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
         const body: NotifyType = JSON.parse(event.body || '');
-
-        const validationResult = validation(body);
-
-        if (validationResult.success === false) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({
-                    message: 'Parâmetros inválidos',
-                }),
-            };
-        }
 
         await NotifyRepository.publishMessage(body);
 
