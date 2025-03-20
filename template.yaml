@@ -27,33 +27,26 @@ Resources:
       Cors: 
         AllowMethods: "'*'"
         AllowHeaders: "'*'"
-        AllowOrigin: "'*'"      
-  
-  NotifyRestApiModel:
-    Type: AWS::ApiGateway::Model
-    Properties:
-      RestApiId: !Ref NotifyRestApi
-      ContentType: application/json
-      Name: NotifyRestApiModel
-      Schema: 
-        $schema: "http://json-schema.org/draft-04/schema#"
-        title: Notify
-        type: object
-        properties:
-          userId:
-            type: string
-          message:
-            type: string
-          priority:
-            type: string
-            enum:
-              - HIGH
-              - MEDIUM
-              - LOW
-        required:
-          - message
-          - priority
-          - userId
+        AllowOrigin: "'*'" 
+      Models:
+        NotifyValidationModel:
+          type: object
+          required: 
+            - priority
+            - message
+            - userId
+          properties:
+            priority:
+              type: string
+              enum: 
+                - HIGH
+                - MEDIUM
+                - LOW
+            message:
+              type: string
+            userId:
+              type: string
+ 
   
   SNSNotifyTopic:
     Type: AWS::SNS::Topic
@@ -243,7 +236,7 @@ Resources:
             Path: /notifications
             Method: post
             RequestModel:
-              Model: !Ref NotifyRestApiModel
+              Model: NotifyValidationModel
               Required: True
               ValidateBody: True
               ValidateParameters: True
