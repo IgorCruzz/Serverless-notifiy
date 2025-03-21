@@ -50,6 +50,7 @@ Resources:
   NotifyUsagePlan:
     Type: AWS::ApiGateway::UsagePlan
     Properties:
+      UsagePlanName: NotifyUsagePlan
       ApiStages:
         - ApiId: !Ref NotifyRestApi
           Stage: Prod
@@ -256,7 +257,7 @@ Resources:
         Variables:
           SNS_TOPIC_ARN: !Ref SNSNotifyTopic 
       Events:
-        HelloWorld:
+        ApiEvent:
           Type: Api
           Properties: 
             RestApiId: !Ref NotifyRestApi
