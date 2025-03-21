@@ -48,15 +48,32 @@ Resources:
               type: string 
 
   NotifyUsagePlan:
-      Type: AWS::ApiGateway::UsagePlan
-      Properties:
-        ApiStages:
-          - ApiId: !Ref NotifyRestApi
-            Stage: Prod
-        Description: NotifyUsagePlan
-        Quota:
-          Limit: 5
-          Period: DAY
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages:
+        - ApiId: !Ref NotifyRestApi
+          Stage: Prod
+      Description: NotifyUsagePlan
+      Quota:
+        Limit: 5
+        Period: DAY
+
+  NotifyApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    Properties:
+      Name: NotifyApiKey
+      Description: NotifyApiKey
+      Enabled: true
+      StageKeys:
+        - RestApiId: !Ref NotifyRestApi
+          StageName: Prod
+
+  NotifyUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref NotifyApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref NotifyUsagePlan
 
   SNSNotifyTopic:
     Type: AWS::SNS::Topic
