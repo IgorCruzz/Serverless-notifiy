@@ -45,9 +45,19 @@ Resources:
             message:
               type: string
             userId:
-              type: string
- 
-  
+              type: string 
+
+  NotifyUsagePlan:
+      Type: AWS::ApiGateway::UsagePlan
+      Properties:
+        ApiStages:
+          - ApiId: !Ref NotifyRestApi
+            Stage: Prod
+        Description: NotifyUsagePlan
+        Quota:
+          Limit: 5
+          Period: DAY
+
   SNSNotifyTopic:
     Type: AWS::SNS::Topic
     Properties:
@@ -235,6 +245,8 @@ Resources:
             RestApiId: !Ref NotifyRestApi
             Path: /notifications
             Method: post
+            Auth:
+              ApiKeyRequired: true
             RequestModel:
               Model: NotifyValidationModel
               Required: True
